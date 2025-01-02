@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghitung Biaya Parkir</title>
+    <style>
+        body{
+            background: url(https://i.pinimg.com/736x/4b/7f/9c/4b7f9cfac044b8cde3cbd3ef2a6dbff0.jpg) no-repeat;
+            background-size: cover;
+            margin: 250px;
+            font-family: "Poppins", sans-serif;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Menghitung Biaya Parkir</h1>
+    <label for="masuk">Jam Masuk</label>
+    <input type="time" id="masuk" onkeyup="parkir()"><br><br>
+    
+    <label for="keluar">Jam keluar</label>
+    <input type="time" id="keluar" onkeyup="parkir()"><br><br>
+
+    <p>Kendaraan anda parkir selama <span id="lamaParkir">0</span>jam</p>
+    <p>Kendaraan anda sebesar Rp. <span id="biayaParkir">0</span></p>
+
+    <!-- Java Script -->
+     <script>
+        function parkir(){
+            let masuk = document.getElementById("masuk").value;
+            let keluar = document.getElementById("keluar").value;
+            let jamMasuk = Math.abs(masuk.split(':')[0]);
+            let jamKeluar = Math.abs(keluar.split(':')[0]);
+        
+            if(masuk >= keluar) {
+                jam = ((24 - jamMasuk) + jamKeluar) * 60;
+            }
+            else {
+                jam = (jamKeluar - jamMasuk) * 60;
+            }
+
+            let menit = Math.abs(keluar.split(':')[1] - masuk.split(':')[1] + jam);
+            let lamaParkir = menit/60;
+
+            if (lamaParkir.toFixed(0) <= 2){
+                bayarParkir = 3000
+            } 
+            else if(lamaParkir.toFixed(0) >= 3){
+                bayarParkir = ((lamaParkir.toFixed(0) - 2) * 1000) + 3000
+            }
+            else{
+                bayarParkir = 0
+            }
+
+            document.getElementById('lamaParkir').innerHTML = lamaParkir;
+            document.getElementById('biayaParkir').innerHTML = bayarParkir;
+        }
+     </script>
+</body>
+</html>
